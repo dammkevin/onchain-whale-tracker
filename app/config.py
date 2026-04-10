@@ -20,7 +20,7 @@ CHAIN_ID = "1"  # Ethereum
 # Start with addresses you want to monitor.
 # Replace these placeholders with real wallet addresses later.
 WATCHED_ADDRESSES = [
-    "0x000000000000000000000000000000000000dead",
+    "0x4838B106FCe9647Bdf1E7877BF73cE8B0BAD5f97",
 ]
 
 # Basic exchange label placeholders for later interpretation.
