@@ -15,10 +15,11 @@ def main():
     for address in WATCHED_ADDRESSES:
         print(f"Fetching transfers for watched address: {address}")
         raw_transfers = fetch_erc20_transfers_for_address(address, offset=100, page=1)
+        print(f"Found {len(raw_transfers)} raw transfer(s) for {address}")
         all_raw_transfers.extend(raw_transfers)
 
     if not all_raw_transfers:
-        print("No transfers found.")
+        print("No transfers found at all.")
         return
 
     contract_addresses = [
@@ -30,7 +31,11 @@ def main():
     price_lookup = fetch_token_prices_usd(contract_addresses)
 
     normalized_transactions = normalize_and_filter_supported_tokens(all_raw_transfers, price_lookup)
+    print(f"Normalized {len(normalized_transactions)} transaction(s)")
+
     whale_transactions = filter_whale_transactions(normalized_transactions)
+    print(f"{len(whale_transactions)} transaction(s) passed the whale threshold")
+
     whale_transactions = attach_signal(whale_transactions)
 
     if not whale_transactions:
