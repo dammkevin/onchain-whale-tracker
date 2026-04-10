@@ -17,21 +17,18 @@ else:
 
 CHAIN_ID = "1"  # Ethereum
 
-# Start with addresses you want to monitor.
-# Replace these placeholders with real wallet addresses later.
+# Replace this with real wallet addresses you want to monitor.
 WATCHED_ADDRESSES = [
     "0x4838B106FCe9647Bdf1E7877BF73cE8B0BAD5f97",
 ]
 
-# Basic exchange label placeholders for later interpretation.
-# Add real known exchange wallets once you want better classification.
+# Add known exchange wallets later for better labeling.
 KNOWN_EXCHANGE_WALLETS = {
     # "0xexampleaddress": "Binance",
     # "0xanotherexample": "Coinbase",
 }
 
-# Optional: only track these tokens at first.
-# Leaving this empty means "allow all tokens returned".
+# Restrict to major supported Ethereum token contracts for cleaner testing.
 TRACKED_TOKEN_CONTRACTS = {
     "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",  # USDC
     "0xdac17f958d2ee523a2206206994597c13d831ec7",  # USDT

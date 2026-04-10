@@ -14,7 +14,7 @@ def main():
 
     for address in WATCHED_ADDRESSES:
         print(f"Fetching transfers for watched address: {address}")
-        raw_transfers = fetch_erc20_transfers_for_address(address, offset=100, page=1)
+        raw_transfers = fetch_erc20_transfers_for_address(address, offset=1000, page=1)
         print(f"Found {len(raw_transfers)} raw transfer(s) for {address}")
         all_raw_transfers.extend(raw_transfers)
 
@@ -42,8 +42,23 @@ def main():
             "| usd_value:", tx["usd_value"]
         )
 
+    sorted_transactions = sorted(
+        normalized_transactions,
+        key=lambda tx: tx["usd_value"],
+        reverse=True
+    )
+
+    print("\nTop 10 transactions by USD value:")
+    for tx in sorted_transactions[:10]:
+        print(
+            tx["token_symbol"],
+            "| amount:", tx["token_amount"],
+            "| usd_price:", tx["usd_price"],
+            "| usd_value:", tx["usd_value"]
+        )
+
     whale_transactions = filter_whale_transactions(normalized_transactions)
-    print(f"{len(whale_transactions)} transaction(s) passed the whale threshold")
+    print(f"\n{len(whale_transactions)} transaction(s) passed the whale threshold")
 
     whale_transactions = attach_signal(whale_transactions)
 

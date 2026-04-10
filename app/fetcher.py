@@ -31,7 +31,6 @@ def fetch_erc20_transfers_for_address(address, offset=100, page=1, startblock=0,
 
     data = response.json()
 
-    # Etherscan often returns status/message/result even on no results.
     if "result" not in data:
         return []
 
@@ -41,26 +40,35 @@ def fetch_erc20_transfers_for_address(address, offset=100, page=1, startblock=0,
     return []
 
 
-def fetch_token_prices_usd(contract_addresses):
+def chunk_list(items, chunk_size):
+    """
+    Split a list into smaller chunks.
+    """
+    chunks = []
+    for i in range(0, len(items), chunk_size):
+        chunks.append(items[i:i + chunk_size])
+    return chunks
+
+
+def fetch_token_prices_usd(contract_addresses, chunk_size=50):
     """
     Fetch USD prices from CoinGecko using token contract addresses on Ethereum.
+
     Returns a dict like:
     {
         "0x...": {"usd": 1.0},
         ...
     }
+
+    The contract addresses are fetched in batches to avoid very long URLs.
     """
     if not contract_addresses:
         return {}
 
     unique_addresses = sorted({addr.lower() for addr in contract_addresses if addr})
-    joined_addresses = ",".join(unique_addresses)
+    address_chunks = chunk_list(unique_addresses, chunk_size)
 
-    url = f"{COINGECKO_BASE_URL}/simple/token_price/ethereum"
-    params = {
-        "contract_addresses": joined_addresses,
-        "vs_currencies": "usd",
-    }
+    all_prices = {}
 
     headers = {}
     if COINGECKO_API_MODE == "pro":
@@ -68,7 +76,22 @@ def fetch_token_prices_usd(contract_addresses):
     else:
         headers["x-cg-demo-api-key"] = COINGECKO_API_KEY
 
-    response = requests.get(url, params=params, headers=headers, timeout=20)
-    response.raise_for_status()
+    url = f"{COINGECKO_BASE_URL}/simple/token_price/ethereum"
 
-    return response.json()
+    for chunk in address_chunks:
+        joined_addresses = ",".join(chunk)
+
+        params = {
+            "contract_addresses": joined_addresses,
+            "vs_currencies": "usd",
+        }
+
+        response = requests.get(url, params=params, headers=headers, timeout=20)
+        response.raise_for_status()
+
+        batch_prices = response.json()
+
+        for contract_address, price_data in batch_prices.items():
+            all_prices[contract_address.lower()] = price_data
+
+    return all_prices
