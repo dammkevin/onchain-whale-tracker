@@ -33,6 +33,15 @@ def main():
     normalized_transactions = normalize_and_filter_supported_tokens(all_raw_transfers, price_lookup)
     print(f"Normalized {len(normalized_transactions)} transaction(s)")
 
+    print("\nSample normalized transactions:")
+    for tx in normalized_transactions[:5]:
+        print(
+            tx["token_symbol"],
+            "| amount:", tx["token_amount"],
+            "| usd_price:", tx["usd_price"],
+            "| usd_value:", tx["usd_value"]
+        )
+
     whale_transactions = filter_whale_transactions(normalized_transactions)
     print(f"{len(whale_transactions)} transaction(s) passed the whale threshold")
 
