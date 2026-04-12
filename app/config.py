@@ -6,7 +6,7 @@ load_dotenv()
 ETHERSCAN_API_KEY = os.getenv("ETHERSCAN_API_KEY", "")
 COINGECKO_API_KEY = os.getenv("COINGECKO_API_KEY", "")
 COINGECKO_API_MODE = os.getenv("COINGECKO_API_MODE", "demo").lower()
-WHALE_THRESHOLD_USD = float(os.getenv("WHALE_THRESHOLD_USD", "100000"))
+WHALE_THRESHOLD_USD = float(os.getenv("WHALE_THRESHOLD_USD", "100"))
 
 ETHERSCAN_BASE_URL = "https://api.etherscan.io/v2/api"
 
@@ -19,7 +19,7 @@ CHAIN_ID = "1"  # Ethereum
 
 # Replace this with real wallet addresses you want to monitor.
 WATCHED_ADDRESSES = [
-    "0x4838B106FCe9647Bdf1E7877BF73cE8B0BAD5f97",
+    "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
 ]
 
 # Add known exchange wallets later for better labeling.
