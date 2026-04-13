@@ -40,6 +40,38 @@ def fetch_erc20_transfers_for_address(address, offset=100, page=1, startblock=0,
     return []
 
 
+def fetch_eth_transfers_for_address(address, offset=100, page=1, startblock=0, endblock=9999999999):
+    """
+    Fetch recent native ETH transactions for a single Ethereum address from Etherscan.
+    Uses the normal transaction endpoint, not the ERC-20 token transfer endpoint.
+    """
+    params = {
+        "chainid": CHAIN_ID,
+        "module": "account",
+        "action": "txlist",
+        "address": address,
+        "startblock": startblock,
+        "endblock": endblock,
+        "page": page,
+        "offset": offset,
+        "sort": "desc",
+        "apikey": ETHERSCAN_API_KEY,
+    }
+
+    response = requests.get(ETHERSCAN_BASE_URL, params=params, timeout=20)
+    response.raise_for_status()
+
+    data = response.json()
+
+    if "result" not in data:
+        return []
+
+    if isinstance(data["result"], list):
+        return data["result"]
+
+    return []
+
+
 def chunk_list(items, chunk_size):
     """
     Split a list into smaller chunks.
