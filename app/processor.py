@@ -102,8 +102,9 @@ def normalize_eth_transfers(raw_eth_transfers, eth_price_usd):
     normalized = []
 
     for tx in raw_eth_transfers:
-        if int(tx.get("value", "0")) == 0:
+        if safe_int(tx.get("value", "0")) == 0:
             continue
+
         normalized.append(normalize_eth_transfer(tx, eth_price_usd))
 
     return normalized
