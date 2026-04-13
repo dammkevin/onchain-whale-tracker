@@ -52,7 +52,7 @@ def normalize_transfer(raw_tx, price_lookup):
     }
 
 
-def normalize_eth_transfer(raw_tx):
+def normalize_eth_transfer(raw_tx, eth_price_usd):
     """
     Normalize a native ETH transaction into the same general structure
     used by ERC-20 transfers.
@@ -60,8 +60,8 @@ def normalize_eth_transfer(raw_tx):
     from_address = raw_tx.get("from", "").lower()
     to_address = raw_tx.get("to", "").lower()
 
-    # ETH values from Etherscan normal tx list come in Wei
     token_amount = convert_raw_amount(raw_tx.get("value", "0"), 18)
+    usd_value = token_amount * float(eth_price_usd)
 
     timestamp = safe_int(raw_tx.get("timeStamp"))
     readable_time = datetime.fromtimestamp(timestamp, UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
@@ -78,8 +78,8 @@ def normalize_eth_transfer(raw_tx):
         "token_symbol": "ETH",
         "token_decimals": 18,
         "token_amount": token_amount,
-        "usd_price": 0.0,
-        "usd_value": 0.0,
+        "usd_price": float(eth_price_usd),
+        "usd_value": usd_value,
         "transaction_type": "eth_transfer",
     }
 
@@ -98,10 +98,10 @@ def normalize_and_filter_supported_tokens(raw_transfers, price_lookup):
     return normalized
 
 
-def normalize_eth_transfers(raw_eth_transfers):
+def normalize_eth_transfers(raw_eth_transfers, eth_price_usd):
     normalized = []
 
     for tx in raw_eth_transfers:
-        normalized.append(normalize_eth_transfer(tx))
+        normalized.append(normalize_eth_transfer(tx, eth_price_usd))
 
     return normalized

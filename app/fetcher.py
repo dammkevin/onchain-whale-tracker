@@ -85,14 +85,6 @@ def chunk_list(items, chunk_size):
 def fetch_token_prices_usd(contract_addresses, chunk_size=50):
     """
     Fetch USD prices from CoinGecko using token contract addresses on Ethereum.
-
-    Returns a dict like:
-    {
-        "0x...": {"usd": 1.0},
-        ...
-    }
-
-    The contract addresses are fetched in batches to avoid very long URLs.
     """
     if not contract_addresses:
         return {}
@@ -127,3 +119,27 @@ def fetch_token_prices_usd(contract_addresses, chunk_size=50):
             all_prices[contract_address.lower()] = price_data
 
     return all_prices
+
+
+def fetch_eth_price_usd():
+    """
+    Fetch the current ETH price in USD from CoinGecko.
+    """
+    headers = {}
+    if COINGECKO_API_MODE == "pro":
+        headers["x-cg-pro-api-key"] = COINGECKO_API_KEY
+    else:
+        headers["x-cg-demo-api-key"] = COINGECKO_API_KEY
+
+    url = f"{COINGECKO_BASE_URL}/simple/price"
+    params = {
+        "ids": "ethereum",
+        "vs_currencies": "usd",
+    }
+
+    response = requests.get(url, params=params, headers=headers, timeout=20)
+    response.raise_for_status()
+
+    data = response.json()
+
+    return float(data.get("ethereum", {}).get("usd", 0.0))
