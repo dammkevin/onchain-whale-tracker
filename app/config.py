@@ -19,7 +19,7 @@ CHAIN_ID = "1"  # Ethereum
 
 # Replace this with real wallet addresses you want to monitor.
 WATCHED_ADDRESSES = [
-    "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+    "0x28C6c06298d514Db089934071355E5743bf21d60"
 ]
 
 # Add known exchange wallets later for better labeling.
