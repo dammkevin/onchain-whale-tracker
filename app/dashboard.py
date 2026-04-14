@@ -29,6 +29,57 @@ def load_data():
     return df
 
 
+def shorten_address(address, left=6, right=4):
+    if not address or len(address) < (left + right):
+        return address
+    return f"{address[:left]}...{address[-right:]}"
+
+
+def format_transaction_type(transaction_type):
+    if transaction_type == "erc20_transfer":
+        return "ERC-20"
+    if transaction_type == "eth_transfer":
+        return "ETH"
+    return transaction_type
+
+
+def prepare_display_dataframe(df):
+    display_df = df.copy()
+
+    display_df["transaction_type"] = display_df["transaction_type"].apply(format_transaction_type)
+    display_df["from_address"] = display_df["from_address"].apply(shorten_address)
+    display_df["to_address"] = display_df["to_address"].apply(shorten_address)
+
+    display_df = display_df.rename(columns={
+        "readable_time": "Time",
+        "token_symbol": "Token",
+        "token_name": "Token Name",
+        "transaction_type": "Transaction Type",
+        "token_amount": "Amount",
+        "usd_value": "USD Value",
+        "from_address": "From",
+        "to_address": "To",
+        "signal": "Signal",
+        "tx_hash": "Transaction Hash",
+    })
+
+    display_df = display_df[
+        [
+            "Time",
+            "Token",
+            "Transaction Type",
+            "Amount",
+            "USD Value",
+            "From",
+            "To",
+            "Signal",
+            "Transaction Hash",
+        ]
+    ]
+
+    return display_df
+
+
 def main():
     st.set_page_config(page_title="On-Chain Whale Tracker", layout="wide")
 
@@ -96,7 +147,13 @@ def main():
     st.subheader("Whale Transactions")
     st.write(f"Showing {len(filtered_df)} transaction(s)")
 
-    st.dataframe(filtered_df, width="stretch")
+    display_df = prepare_display_dataframe(filtered_df)
+
+    st.dataframe(
+        display_df,
+        width="stretch",
+        hide_index=True,
+    )
 
 
 if __name__ == "__main__":
