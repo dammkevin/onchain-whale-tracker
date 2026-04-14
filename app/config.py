@@ -22,10 +22,16 @@ WATCHED_ADDRESSES = [
     "0x28C6c06298d514Db089934071355E5743bf21d60"
 ]
 
-# Add known exchange wallets later for better labeling.
+# Known exchange wallet labels for basic signal interpretation
 KNOWN_EXCHANGE_WALLETS = {
-    # "0xexampleaddress": "Binance",
-    # "0xanotherexample": "Coinbase",
+    # Binance
+    "0x28c6c06298d514db089934071355e5743bf21d60": "Binance",
+
+    # Coinbase
+    "0x503828976d22510aad0201ac7ec88293211d23da": "Coinbase",
+
+    # Kraken
+    "0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0": "Kraken",
 }
 
 # Restrict to major supported Ethereum token contracts for cleaner testing.
