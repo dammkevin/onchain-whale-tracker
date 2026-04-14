@@ -10,8 +10,10 @@ def classify_transaction(tx):
 
     if from_exchange and not to_exchange:
         return f"Possible withdrawal from {from_exchange} / accumulation"
+
     if to_exchange and not from_exchange:
         return f"Possible deposit to {to_exchange} / sell pressure"
+
     if from_exchange and to_exchange:
         return f"Exchange-to-exchange transfer ({from_exchange} -> {to_exchange})"
 
