@@ -45,7 +45,7 @@ def main():
         return
 
     st.subheader("Whale Transactions")
-    st.dataframe(df, use_container_width=True)
+    st.dataframe(df, width="stretch")
 
 
 if __name__ == "__main__":
