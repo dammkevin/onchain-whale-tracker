@@ -77,6 +77,22 @@ def main():
         (df["usd_value"] >= min_usd_value)
     ]
 
+    total_transactions = len(filtered_df)
+    total_usd_value = filtered_df["usd_value"].sum() if not filtered_df.empty else 0.0
+    largest_transaction = filtered_df["usd_value"].max() if not filtered_df.empty else 0.0
+    eth_count = len(filtered_df[filtered_df["transaction_type"] == "eth_transfer"])
+    erc20_count = len(filtered_df[filtered_df["transaction_type"] == "erc20_transfer"])
+
+    st.subheader("Summary Metrics")
+
+    col1, col2, col3, col4, col5 = st.columns(5)
+
+    col1.metric("Transactions", f"{total_transactions:,}")
+    col2.metric("Total USD Value", f"${total_usd_value:,.2f}")
+    col3.metric("Largest Transaction", f"${largest_transaction:,.2f}")
+    col4.metric("ETH Transfers", f"{eth_count:,}")
+    col5.metric("ERC-20 Transfers", f"{erc20_count:,}")
+
     st.subheader("Whale Transactions")
     st.write(f"Showing {len(filtered_df)} transaction(s)")
 
