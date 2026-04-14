@@ -149,8 +149,20 @@ def main():
 
     display_df = prepare_display_dataframe(filtered_df)
 
+    def color_signal(val):
+        if "sell pressure" in val.lower():
+            return "background-color: #ffcccc"  # light red
+        elif "accumulation" in val.lower():
+            return "background-color: #ccffcc"  # light green
+        elif "exchange-to-exchange" in val.lower():
+            return "background-color: #fff3cd"  # light yellow
+        return ""
+
+
+    styled_df = display_df.style.map(color_signal, subset=["Signal"])
+
     st.dataframe(
-        display_df,
+        styled_df,
         width="stretch",
         hide_index=True,
     )
