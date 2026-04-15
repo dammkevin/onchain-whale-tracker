@@ -4,7 +4,6 @@ An interactive analytics tool for detecting and interpreting large cryptocurrenc
 
 This project monitors wallet activity, identifies high-value transfers, and classifies them into meaningful signals such as **exchange inflows (sell pressure)** and **outflows (accumulation)** — similar to tools used by crypto analysts and traders.
 
----
 
 ## 🚀 Features
 
@@ -23,7 +22,6 @@ This project monitors wallet activity, identifies high-value transfers, and clas
   - Color-coded signals
 - Clean, user-friendly interface for exploring on-chain activity
 
----
 
 ## 📊 Dashboard Preview
 
@@ -33,8 +31,8 @@ Example:
 
 ```md
 ![Dashboard Screenshot](assets/dashboard.png)
+```
 
----
 
 ## 🧠 How It Works
 
@@ -61,7 +59,6 @@ Example:
 7. **Visualization**
    - Displays results in an interactive Streamlit dashboard
 
----
 
 ## ⚙️ Installation & Setup
 
@@ -116,5 +113,6 @@ python -m app.main
 ```bash
 streamlit run app/dashboard.py
 ```
+
 
 ## Project Structure
