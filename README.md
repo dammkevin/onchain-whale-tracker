@@ -5,7 +5,7 @@ An interactive analytics tool for detecting and interpreting large cryptocurrenc
 This project monitors wallet activity, identifies high-value transfers, and classifies them into meaningful signals such as **exchange inflows (sell pressure)** and **outflows (accumulation)** — similar to tools used by crypto analysts and traders.
 
 
-## 🚀 Features
+## Features
 
 - Tracks **ERC-20 token transfers** (USDC, USDT, WETH, DAI, etc.)
 - Tracks **native ETH transactions**
@@ -23,7 +23,7 @@ This project monitors wallet activity, identifies high-value transfers, and clas
 - Clean, user-friendly interface for exploring on-chain activity
 
 
-## 📊 Dashboard Preview
+## Dashboard Preview
 
 > *(Add your screenshot here)*
 
@@ -34,7 +34,7 @@ Example:
 ```
 
 
-## 🧠 How It Works
+## How It Works
 
 1. **Data Collection**
    - Fetches transaction data from the Ethereum blockchain using the Etherscan API
@@ -60,7 +60,7 @@ Example:
    - Displays results in an interactive Streamlit dashboard
 
 
-## ⚙️ Installation & Setup
+## Installation & Setup
 
 ### 1. Clone the repository
 
@@ -116,3 +116,27 @@ streamlit run app/dashboard.py
 
 
 ## Project Structure
+
+onchain-whale-tracker/
+│
+├── app/
+│   ├── main.py              # Entry point for data collection
+│   ├── dashboard.py         # Streamlit dashboard
+│   ├── fetcher.py           # API calls (Etherscan, CoinGecko)
+│   ├── processor.py         # Data normalization
+│   ├── filters.py           # Whale filtering logic
+│   ├── analyzer.py          # Signal classification
+│   ├── storage.py           # SQLite storage
+│   ├── config.py            # Configurations & constants
+│   └── utils.py             # Helper functions
+│
+├── data/
+│   └── whale_transactions.db
+│
+├── .streamlit/
+│   └── config.toml          # Dashboard theme settings
+│
+├── requirements.txt
+├── README.md
+└── .env
+
