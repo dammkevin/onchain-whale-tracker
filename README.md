@@ -1,45 +1,120 @@
-## On-Chain Whale Tracker
+# 🐋 On-Chain Whale Tracker
 
-### Overview
-The On-Chain Whale Tracker is a Python-based tool that monitors large cryptocurrency wallet activity on the Ethereum blockchain. It focuses on detecting high-value token transfers ("whale activity") and providing insights into potential market signals.
+An interactive analytics tool for detecting and interpreting large cryptocurrency transactions ("whale activity") on the Ethereum blockchain.
 
----
-
-### Version 1 Scope
-Version 1 is designed as a **watched-wallet ERC-20 whale tracker**.
-
-It monitors a manually selected list of Ethereum wallet addresses, fetches recent ERC-20 token transfers, enriches them with USD pricing, and flags transactions that exceed a configurable whale threshold.
+This project monitors wallet activity, identifies high-value transfers, and classifies them into meaningful signals such as **exchange inflows (sell pressure)** and **outflows (accumulation)** — similar to tools used by crypto analysts and traders.
 
 ---
 
-### Features
-- Fetches ERC-20 transfer data using Etherscan API  
-- Tracks selected Ethereum wallet addresses  
-- Filters for major tokens (USDC, USDT, WETH, DAI)  
-- Converts raw blockchain values into readable token amounts  
-- Enriches transactions with USD pricing via CoinGecko  
-- Identifies whale transactions based on USD thresholds  
-- Outputs readable transaction summaries in the terminal  
-- Stores detected whale transactions in SQLite  
+## 🚀 Features
+
+- Tracks **ERC-20 token transfers** (USDC, USDT, WETH, DAI, etc.)
+- Tracks **native ETH transactions**
+- Converts all transactions into **USD value**
+- Detects **whale transactions** based on configurable thresholds
+- Classifies transactions into signals:
+  - 📉 Exchange inflow → potential **sell pressure**
+  - 📈 Exchange outflow → potential **accumulation**
+  - 🔁 Wallet-to-wallet → **neutral**
+- Stores data in a **SQLite database**
+- Interactive **Streamlit dashboard** with:
+  - Filters (token, transaction type, signal, USD value)
+  - Summary metrics
+  - Color-coded signals
+- Clean, user-friendly interface for exploring on-chain activity
 
 ---
 
-### Limitations (Current Version)
-- Does not scan the full Ethereum network  
-- Does not track native ETH transfers  
-- Does not decode swaps or classify buys/sells  
-- Requires manually selected wallet addresses  
-- Not a real-time monitoring system  
+## 📊 Dashboard Preview
+
+> *(Add your screenshot here)*
+
+Example:
+
+```md
+![Dashboard Screenshot](assets/dashboard.png)
 
 ---
 
-### Key Insight
-This project focuses on **analyzing wallet-specific whale activity**, not full on-chain market scanning. The accuracy and usefulness depend on the selected wallet addresses and token filters.
+## 🧠 How It Works
+
+1. **Data Collection**
+   - Fetches transaction data from the Ethereum blockchain using the Etherscan API
+
+2. **Processing**
+   - Normalizes token amounts (handles decimals)
+   - Converts ETH from Wei → ETH
+
+3. **Enrichment**
+   - Retrieves token prices from CoinGecko
+   - Calculates USD value for each transaction
+
+4. **Detection**
+   - Filters transactions above a configurable whale threshold
+
+5. **Analysis**
+   - Classifies transactions based on exchange wallet interactions
+
+6. **Storage**
+   - Saves results in a SQLite database
+
+7. **Visualization**
+   - Displays results in an interactive Streamlit dashboard
 
 ---
 
-### Tech Stack
-- Python  
-- Etherscan API  
-- CoinGecko API  
-- SQLite  
+## ⚙️ Installation & Setup
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/onchain-whale-tracker.git
+cd onchain-whale-tracker
+```
+
+### 2. Create virtual environment
+
+```bash
+python -m venv venv
+```
+Activate it:
+
+### Windows
+
+```bash
+venv\Scripts\activate
+```
+
+### Mac/Linux
+
+```bash
+source venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### 4. Set up environment variables
+Create a `.env` file in the root directory:
+
+```env
+ETHERSCAN_API_KEY=your_api_key_here
+COINGECKO_API_KEY=your_api_key_here
+```
+
+### 5. Run the whale tracker (data collection)
+
+```bash
+python -m app.main
+```
+
+### 6. Launch the dashboard
+
+```bash
+streamlit run app/dashboard.py
+```
+
+## Project Structure
