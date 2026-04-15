@@ -117,6 +117,7 @@ streamlit run app/dashboard.py
 
 ## Project Structure
 
+```text
 onchain-whale-tracker/
 │
 ├── app/
@@ -139,4 +140,5 @@ onchain-whale-tracker/
 ├── requirements.txt
 ├── README.md
 └── .env
+```
 
