@@ -54,6 +54,15 @@ This project monitors wallet activity, identifies high-value transfers, and clas
    - Displays results in an interactive Streamlit dashboard
 
 
+## Tech Stack
+
+- **Languages:** Python  
+- **Data Processing:** Pandas  
+- **APIs:** Etherscan, CoinGecko  
+- **Database:** SQLite  
+- **Frontend:** Streamlit  
+
+
 ## Installation & Setup
 
 ### 1. Clone the repository
