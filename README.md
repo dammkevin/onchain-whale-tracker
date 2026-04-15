@@ -25,13 +25,7 @@ This project monitors wallet activity, identifies high-value transfers, and clas
 
 ## Dashboard Preview
 
-> *(Add your screenshot here)*
-
-Example:
-
-```md
 ![Dashboard Screenshot](assets/dashboard.png)
-```
 
 
 ## How It Works
