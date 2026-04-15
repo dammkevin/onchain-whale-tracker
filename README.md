@@ -2,7 +2,7 @@
 
 An interactive analytics tool for detecting and interpreting large cryptocurrency transactions ("whale activity") on the Ethereum blockchain.
 
-This project monitors wallet activity, identifies high-value transfers, and classifies them into meaningful signals such as **exchange inflows (sell pressure)** and **outflows (accumulation)** — similar to tools used by crypto analysts and traders.
+This project monitors wallet activity, identifies high-value transfers, and classifies them into meaningful signals such as **exchange inflows (sell pressure)** and **outflows (accumulation)** - similar to tools used by crypto analysts and traders.
 
 
 ## Features
@@ -142,3 +142,34 @@ onchain-whale-tracker/
 └── .env
 ```
 
+
+## Limitations
+
+- Tracks only selected wallet addresses (not full network scanning)
+- Does not decode DEX swaps or complex DeFi interactions
+- Signals are heuristic-based, not guaranteed trading behavior
+- Not real-time (runs on manual execution)
+
+
+## Future Improvements
+
+- Real-time monitoring & alerts (Telegram / email)
+- Advanced analytics (accumulation vs distribution trends)
+- Whale wallet discovery & clustering
+- Multi-chain support (Arbitrum, Base, Solana)
+
+
+## Key Takeaway
+
+This project evolves from a simple transaction tracker into a crypto analytics tool, combining:
+
+- blockchain data engineering
+- financial signal interpretation
+- interactive data visualization
+
+to provide insight into how large players may be influencing the market.
+
+
+## License
+
+MIT License
